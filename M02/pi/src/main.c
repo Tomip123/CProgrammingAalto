@@ -2,8 +2,8 @@
 
 int main(void)
 {
-    int number = 50;
-    printf("The number is %d\n", number);
+    float number = 3.14159265;
+    printf("The number is %.4f\n", number);
     
     return 0;
 }

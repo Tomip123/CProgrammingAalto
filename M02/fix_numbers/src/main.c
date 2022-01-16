@@ -4,8 +4,8 @@ int main(void)
 {
     char varA = -50;
     unsigned char varB = 200;
-    unsigned char varB2 = 500;  // Error, exceeds the value range
-    int varC;  // ok, but initial value is unknown
+    int varB2 = 500;  // Error, exceeds the value range
+    int varC = 0;  // ok, but initial value is unknown
     long varD = 100000;
 
     /* Output the above values */

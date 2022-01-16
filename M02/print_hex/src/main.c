@@ -2,8 +2,8 @@
 
 int main(void)
 {
-    int number = 50;
-    printf("The number is %d\n", number);
+    int number = 300;
+    printf("The number is 0x%04X\n", number);
     
     return 0;
 }

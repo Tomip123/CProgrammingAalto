@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "source.h"
+#include "source.c"
 
 int main(void)
 {

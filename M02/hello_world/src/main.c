@@ -3,6 +3,6 @@
 int main(void)
 {
     /* The following line will print out some text */
-    printf("Hey! How are you?\n");
+    printf("Hey!\nHow are you?\nI am fine, thank you");
     return 0;
 }
