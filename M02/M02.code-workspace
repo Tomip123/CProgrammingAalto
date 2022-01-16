@@ -1,0 +1,32 @@
+{
+	"folders": [
+		{
+			"name": "2.1: Hello World",
+			"path": "hello_world"
+		},
+		{
+			"name": "2.2: Fix Numbers",
+			"path": "fix_numbers"
+		},
+		{
+			"name": "2.3: Power Three",
+			"path": "power_three"
+		},
+		{
+			"name": "2.4: Fraction Sum",
+			"path": "fraction_sum"
+		},
+		{
+			"name": "2.5: Vector",
+			"path": "vector"
+		},
+		{
+			"name": "2.6: Print pi",
+			"path": "pi"
+		},
+		{
+			"name": "2.7: Print hex",
+			"path": "print_hex"
+		},
+	]
+}
