@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"name": "2.1: Pi",
+			"path": "pi"
+		},
+		{
+			"name": "2.2: Blocks",
+			"path": "blocks"
+		},
+		{
+			"name": "2.3: Calculator",
+			"path": "calc"
+		},
+		{
+			"name": "2.4: For",
+			"path": "for"
+		},
+		{
+			"name": "2.5: Triangle",
+			"path": "triangle"
+		},
+		{
+			"name": "2.6: ASCII",
+			"path": "ascii"
+		}
+	],
+	"settings": {}
+}
