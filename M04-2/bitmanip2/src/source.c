@@ -9,7 +9,4 @@ which is the hexadecimal representation `6D`.
 
 // define mergeBits function here
 unsigned char mergeBits(unsigned char a, unsigned char b) {
-    unsigned char result = 0;
-    result = (a << 4) | b;
-    return result;
 }

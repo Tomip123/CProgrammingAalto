@@ -26,6 +26,7 @@ uint32_t op_bit_set(uint32_t data, int i)
     return data;
 }
 
+
 /* DESCRIPTION:
  * ------------
  * The function clears a bit with index i (makes the bit inactive (0)) in the argument
@@ -96,7 +97,8 @@ uint32_t op_bit_toggle(uint32_t data, int i)
 
 int op_bit_get(uint32_t data, int i)
 {
-    return (data >> i) & 1;
+    uint32_t mask = 1 << i;
+    return (data & mask) >> i;
 }
 
 /* DESCRIPTION:
@@ -126,9 +128,23 @@ int op_bit_get(uint32_t data, int i)
 
 void op_print_byte(unsigned char b)
 {
-    for (int i = 0; i < 8; i++)
-    {
-        printf("%d", (b >> i) & 1);
-    }
+    // declare variables
+    int i;
     
+    // loop through the bits in the unsigned char
+    for (i = 0; i < 8; i++)
+    {
+        // if the bit is set, print 1
+        if (b & 0x80)
+        {
+            printf("1");
+        }
+        // otherwise, print 0
+        else
+        {
+            printf("0");
+        }
+        // shift the unsigned char to the right
+        b <<= 1;
+    }
 }

@@ -26,71 +26,29 @@
  */
 
 
-
 int validateHeader(uint32_t header)
 {
-    if (header == 0x2a)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
+    
 }
 int getFrameId(uint32_t header)
 {
-    if (validateHeader(header) == 1)
-    {
-        return (header & 0x0000FFFF);
-    }
-    else
-    {
-        return -1;
-    }
+    return 0;
 }
 int getFrameType(uint32_t header)
 {
-    if (validateHeader(header) == 1 && (header & 0x10000000) == 0)
-    {
-        return (header & 0x000000FF);
-    }
-    else
-    {
-        return -1;
-    }
+    return -1;
 }
 int getSourceAddress(uint32_t header)
 {
-    if (validateHeader(header) == 1)
-    {
-        return (header & 0x00FF0000) >> 16;
-    }
-    else
-    {
-        return -1;
-    }
+    return -1;
 }
 
 uint32_t createAckHeader(int destAddress, int sourceAddress, uint8_t frameId, char valid)
 {
-    uint32_t header = 0x2a;
-    header = header | (destAddress << 16);
-    header = header | (sourceAddress << 8);
-    header = header | (frameId << 24);
-    if (valid == 1)
-    {
-        header = header | 0x80000000;
-    }
-    return header;
+   return 0;
 }
 
 uint32_t createHeader(int destAddress, int sourceAddress, uint8_t frameId, uint8_t type)
 {
-    uint32_t header = 0x2a;
-    header = header | (destAddress << 16);
-    header = header | (sourceAddress << 8);
-    header = header | (frameId << 24);
-    header = header | (type << 16);
-    return header;
+    return 0;
 }

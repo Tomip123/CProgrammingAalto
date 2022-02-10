@@ -8,5 +8,4 @@ of the input value **v**. Rest of the two highest significant bits must be reset
 // define sixBits function here
 unsigned char sixBits(unsigned char v)
 {
-    return v & 0x3F;
     }

@@ -48,7 +48,7 @@ int main(void)
     printf("Bit number 1 is %d, should be 1\n", op_bit_get(result, 1));
     printf("Bit number 3 is %d, should be 1\n", op_bit_get(result, 3));
     printf("Bit number 9 is %d, should be 1\n", op_bit_get(result, 9));
-    printf("Bit number 2 is %d, should be 1\n", op_bit_get(result, 2));
+    printf("Bit number 2 is %d, should be 0\n", op_bit_get(result, 2));
     printf("Bit number 13 is %d, should be 0\n", op_bit_get(result, 13));
 
     /* op_print_byte tests */

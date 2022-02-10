@@ -1,0 +1,32 @@
+{
+	"folders": [
+		{
+			"name": "5.1: Segmentation fault",
+			"path": "seg_fault"
+		},
+		{
+			"name": "5.2: Read int",
+			"path": "read_int"
+		},
+		{
+			"name": "5.3: Array sum",
+			"path": "array"
+		},
+		{
+			"name": "5.4: Count chars",
+			"path": "countchars"
+		},
+		{
+			"name": "5.5: Sort array",
+			"path": "sort"
+		},
+		{
+			"name": "5.6: Count alpha",
+			"path": "countalpha"
+		},
+		{
+			"name": "5.7: New string",
+			"path": "newstring"
+		}
+	]
+}
