@@ -1,5 +1,5 @@
 #include "source.h"
-
+#include <ctype.h>
 
 /**
  * \brief Counts alphabetical characters in a string
@@ -9,5 +9,14 @@
  */
 int count_isalpha(const char *str)
 {
-    
+    int count = 0;
+    while (*str)
+    {
+        if (isalpha(*str))
+        {
+            count++;
+        }
+        str++;
+    }
+    return count;
 }

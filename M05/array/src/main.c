@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "source.h"
+#include "source.c"
 
 int main()
 {

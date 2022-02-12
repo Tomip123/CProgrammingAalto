@@ -9,4 +9,14 @@
 
 void countchars(const char *array, unsigned int *counts)
 {
+    for (int i = 0; i < 256; i++)
+    {
+        counts[i] = 0;
     }
+    while (*array)
+    {
+        counts[(int)*array]++;
+        array++;
+    }
+
+}

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "source.h"
+#include "source.c"
 
 int main()
 {

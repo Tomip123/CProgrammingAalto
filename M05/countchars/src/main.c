@@ -1,5 +1,6 @@
 #include "source.h"
 #include <stdio.h>
+#include "source.c"
 
 void printcounts(int min, int max, const unsigned int *counts)
 {

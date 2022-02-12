@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "source.h"
+#include "source.c"
 
 // can be used for checking what the array looks like
 void print_array(int *ar, int s)

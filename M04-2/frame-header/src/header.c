@@ -1,4 +1,5 @@
 #include "header.h"
+#include <stdlib.h>
 
 /*
  * You are required to implement the parser functions below.
@@ -26,9 +27,12 @@
  */
 
 
+
 int validateHeader(uint32_t header)
 {
     
+
+
 }
 int getFrameId(uint32_t header)
 {

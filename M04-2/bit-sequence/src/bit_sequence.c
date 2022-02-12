@@ -31,30 +31,32 @@
 
 uint8_t op_bit_get_sequence(uint32_t data, uint32_t mask)
 {
-    // example:
-    // data = 0101 0101 1010 1010 0101 0101 1010 1010 = 0x55aa55aa
-    // mask = 0000 0000 0001 0011 0011 0000 0010 0110 = 0x00133026  
-    //                     ^   ^^   ^^        ^   ^^
-    // retVal =            0   10   01        1   01  = 0x4d
-
-    // declare variables
     uint8_t retVal = 0;
-    uint8_t mask_copy = mask;
+    uint32_t i = 0;
+    uint32_t j = 0;
+    uint8_t mask_bits[32];
 
-    // loop through mask and set bits in retVal, mask has max of 8 bits
-    for (int i = 0; i < 8; i++)
-    {
-        // if the bit in mask is set, set the bit in retVal
-        if (mask_copy & 0x80)
-        {
-            retVal |= (data & 0x80) >> (7 - i);
-        }
-        // shift mask to the right
-        mask_copy <<= 1;
-        // shift data to the
-        data <<= 1;
+    for (i = 0; i < 32; i++) {
+        mask_bits[i] = 0;
     }
+
+    for (i = 0; i < 32; i++) {
+        if ((mask >> i) & 0x01) {
+            mask_bits[i] = 1;
+        }
+    }
+
+    for (i = 0; i < 32; i++) {
+        if (mask_bits[i] == 1) {
+            if ((data >> i) & 0x01) {
+                retVal |= 0x01 << j;
+            }
+            j++;
+        }
+    }
+
     return retVal;
 }
+
 
 
