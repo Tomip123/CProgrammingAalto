@@ -30,9 +30,7 @@
 
 int validateHeader(uint32_t header)
 {
-    
-
-
+    return -1;
 }
 int getFrameId(uint32_t header)
 {
