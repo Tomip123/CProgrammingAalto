@@ -1,0 +1,96 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "make",
+            "windows":{
+                "command": "mingw32-make"
+            },
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/src"
+            },
+            "problemMatcher": [
+              {
+                    "owner": "cpp",
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceFolder}/src/"
+                    ],
+                    "pattern": {
+                        "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "severity": 4,
+                        "message": 5
+                    }
+                }
+            ]
+        },
+        {
+            "label": "Clean",
+            "type": "shell",
+            "command": "make clean",
+            "args": [],
+            "windows":{
+                "command": "mingw32-make clean",
+            },
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/src"
+            },
+            "problemMatcher": [{
+                "base": "$gcc",
+                "fileLocation": ["relative", "${workspaceFolder}/src"]}
+            ]
+        },
+        {
+          "label": "Valgrind",
+          "type": "shell",
+          "command": "echo",
+          "args": [
+                  "Only supported in linux systems.",
+              ],
+          "group": "build",
+          "dependsOn": [
+                  "Build"
+              ],
+          "linux": {
+              "command": "valgrind",
+              "args": [
+                  "--trace-children=yes",
+                  "--leak-check=full",
+                  "--show-leak-kinds=all",
+                  "${workspaceFolder}/src/main"
+              ],
+              "group": "build",
+              "dependsOn": [
+                  "Build"
+              ],
+              "options": {
+                  "cwd": "${workspaceFolder}/src"
+              },
+              "problemMatcher": [
+                  {
+                      "owner": "cpp",
+                      "fileLocation": [
+                          "relative",
+                          "${workspaceFolder}/src"
+                      ],
+                      "pattern": {
+                          "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                          "file": 1,
+                          "line": 2,
+                          "column": 3,
+                          "severity": 4,
+                          "message": 5
+                      }
+                  }
+              ]
+          }
+        }
+    ]
+}

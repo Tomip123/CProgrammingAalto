@@ -1,0 +1,77 @@
+{
+	"folders": [
+		{
+			"name": "7.1: Dynamic array of strings",
+			"path": "T1-array-of-strings"
+		},
+        {
+			"name": "7.2: Number of seats in a vehicle",
+			"path": "T2-vehicle-seats"
+		},
+        {
+			"name": "7.3: Ships",
+			"path": "T3-ships"
+		},
+        {
+			"name": "7.4: Book collection",
+			"path": "T4-book-collection"
+		},
+		{
+			"name": "7.5: Fraction",
+			"path": "T5-fraction"
+		},
+		{
+			"name": "7.6: Queue",
+			"path": "T6-queue"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"array": "cpp",
+			"atomic": "cpp",
+			"*.tcc": "cpp",
+			"cctype": "cpp",
+			"clocale": "cpp",
+			"cmath": "cpp",
+			"cstdarg": "cpp",
+			"cstddef": "cpp",
+			"cstdint": "cpp",
+			"cstdio": "cpp",
+			"cstdlib": "cpp",
+			"cwchar": "cpp",
+			"cwctype": "cpp",
+			"deque": "cpp",
+			"list": "cpp",
+			"unordered_map": "cpp",
+			"vector": "cpp",
+			"exception": "cpp",
+			"algorithm": "cpp",
+			"functional": "cpp",
+			"iterator": "cpp",
+			"memory": "cpp",
+			"memory_resource": "cpp",
+			"numeric": "cpp",
+			"optional": "cpp",
+			"random": "cpp",
+			"string": "cpp",
+			"string_view": "cpp",
+			"system_error": "cpp",
+			"tuple": "cpp",
+			"type_traits": "cpp",
+			"utility": "cpp",
+			"fstream": "cpp",
+			"initializer_list": "cpp",
+			"iosfwd": "cpp",
+			"iostream": "cpp",
+			"istream": "cpp",
+			"limits": "cpp",
+			"new": "cpp",
+			"ostream": "cpp",
+			"sstream": "cpp",
+			"stdexcept": "cpp",
+			"streambuf": "cpp",
+			"typeinfo": "cpp",
+			"variant": "cpp"
+		}
+	}
+}
