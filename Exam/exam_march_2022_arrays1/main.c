@@ -50,11 +50,16 @@ int compare_ints_ascending(const void* a, const void* b) {
  *       of your implementation.
  */
 int* copy_sorted_ascending(int* array, unsigned int n) {
+	// Allocate memory for the new array
 	int* sorted_array = malloc(n * sizeof(int));
+	// Copy the contents of the old array to the new array
 	memcpy(sorted_array, array, n * sizeof(int));
+	// Sort the new array
 	qsort(sorted_array, n, sizeof(int), compare_ints_ascending);
+	// Return the new array
 	return sorted_array;
 }
+
 
 /**
  * \brief conducts the tests for your implementation.
@@ -66,6 +71,8 @@ int* copy_sorted_ascending(int* array, unsigned int n) {
  */
 void my_tests(void) {
 	// You can write your own test code here.
+
+	// Test 1
 	printf("Test 1: array = {3, 2, 1, 4, 5} and n = 5\n");
 	int array[5] = {3, 2, 1, 4, 5};
 	int* new_array = copy_sorted_ascending(array, 5);
@@ -75,8 +82,8 @@ void my_tests(void) {
 	printf("\n\n");
 	free(new_array);
 
+	// Test 2
 	printf("Test 2: array = {3, 2, 1, 4, 5, 6, 7, 8, 9, 10} and n = 10\n");
-
 	int array2[10] = {3, 2, 1, 4, 5, 6, 7, 8, 9, 10};
 	int* new_array2 = copy_sorted_ascending(array2, 10);
 	for (int i = 0; i < 10; i++) {
@@ -85,6 +92,7 @@ void my_tests(void) {
 	printf("\n\n");
 	free(new_array2);
 
+	// Test 3
 	printf("Test 3: array = {3, 2, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20} and n = 20\n");
 	int array3[20] = {3, 2, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
 	int* new_array3 = copy_sorted_ascending(array3, 20);
@@ -92,6 +100,7 @@ void my_tests(void) {
 	    printf("%d ", new_array3[i]);
 	}
 	free(new_array3);
+
 }
 
 int main(void) {

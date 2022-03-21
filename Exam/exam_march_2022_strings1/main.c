@@ -24,9 +24,10 @@
  *       of your implementation.
  */
 void convert_non_alphabetical(char* str) {
-	//TODO: implement your function here!
+	// Iterate through the string
 	int i = 0;
 	while (str[i] != '\0') {
+		// If current character is not alphabetical
 		if (!isalpha(str[i])) {
 			str[i] = 'a';
 		}
@@ -45,32 +46,38 @@ void convert_non_alphabetical(char* str) {
  * 
  */
 void my_tests(void) {
-	// You can write your own test code here.
+	
+	// Test 1
 	printf("Test 1: str = \"Hello World!\"\n");
 	char str1[] = "Hello World!";
 	convert_non_alphabetical(str1);
 	printf("Output: %s\n\n", str1);
 
+	// Test 2
 	printf("Test 2: str = \"Hello World! 123\"\n");
 	char str2[] = "Hello World! 123";
 	convert_non_alphabetical(str2);
 	printf("Output: %s\n\n", str2);
 
+	// Test 3
 	printf("Test 3: str = \"Hello World! 123 abc\"\n");
 	char str3[] = "Hello World! 123 abc";
 	convert_non_alphabetical(str3);
 	printf("Output: %s\n\n", str3);
 
+	// Test 4
 	printf("Test 4: str = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\"\n");
 	char str4[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	convert_non_alphabetical(str4);
 	printf("Output: %s\n\n", str4);
 
+	// Test 5
 	printf("Test 5: str = \"abcdefghijklmnopqrstuvwxyz\"\n");
 	char str5[] = "abcdefghijklmnopqrstuvwxyz";
 	convert_non_alphabetical(str5);
 	printf("Output: %s\n\n", str5);
 
+	// Test 6
 	printf("Test 6: str = \"1234567890\"\n");
 	char str6[] = "1234567890";
 	convert_non_alphabetical(str6);

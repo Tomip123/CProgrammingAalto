@@ -25,8 +25,11 @@
  */
 unsigned int count_clear_bits_in_array(unsigned char* array, unsigned int n) {
 	unsigned int count = 0;
+	// Loop through each element in the array
 	for (unsigned int i = 0; i < n; i++) {
+		// Loop through each bit in the element
 		for (int j = 0; j < 8; j++) {
+			// If the bit is 0, increment the count
 			if ((array[i] & (1 << j)) == 0) {
 				count++;
 			}
@@ -45,19 +48,22 @@ unsigned int count_clear_bits_in_array(unsigned char* array, unsigned int n) {
  * 
  */
 void my_tests(void) {
-	// You can write your own test code here.
+	
+	// Test 1
 	printf("Test 1: array = {0xA3, 0x58}, n = 2\n");
 	unsigned char array1[] = {0xA3, 0x58};
 	unsigned int n1 = 2;
 	unsigned int count1 = count_clear_bits_in_array(array1, n1);
 	printf("Output: %d\n\n", count1);
 
+	// Test 2
 	printf("Test 2: array = {0xA3, 0x58, 0xA3, 0x58}, n = 4\n");
 	unsigned char array2[] = {0xA3, 0x58, 0xA3, 0x58};
 	unsigned int n2 = 4;
 	unsigned int count2 = count_clear_bits_in_array(array2, n2);
 	printf("Output: %d\n\n", count2);
 
+	// Test 3
 	printf("Test 3: array = {0xB3, 0x58, 0xA3, 0x58}, n = 4\n");
 	unsigned char array3[] = {0xB3, 0x58, 0xA3, 0x58};
 	unsigned int n3 = 4;
