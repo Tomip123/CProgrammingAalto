@@ -19,20 +19,14 @@
  *         strings excluding the split.      
  */
 char** split_string(const char* str, const char* split) {
-	char** result = malloc(sizeof(char*));
-    char* str_copy = strdup(str);
-    char* token = strtok(str_copy, split);
-    int index = 0;
-    while (token) {
-        result[index] = strdup(token);
-        token = strtok(NULL, split);
-        index++;
-        if (token) {
-            result = realloc(result, sizeof(char*) * (index + 1));
-        }
-    }
-    result[index] = NULL;
-    return result;
+    // str can be "Split_ab!#this_ab!#case_ab!#correctly_ab!#too!" and split is "_ab!#"
+    // Result is ["Split", "this", "case", "correctly", "too!", NULL]
+    //
+    // str can be "One. .more. .test. .for. .string. .splitting." and split is ". ."
+    // Result is ["One", "more", "test", "for", "string", "splitting."]
+    //
+
+    
 }
 
 
@@ -42,11 +36,11 @@ char** split_string(const char* str, const char* split) {
  * \param split_string An array of strings returned by split_string function.
  */
 void print_split_string(char** split_string) {
-	int i = 0;
-	while (split_string[i] != NULL) {
-		printf("%s\n", split_string[i]);
-		i++;
-	}
+    int i = 0;
+    while (split_string[i] != NULL) {
+        printf("%s\n", split_string[i]);
+        i++;
+    }
 }
 
 /**
@@ -55,10 +49,10 @@ void print_split_string(char** split_string) {
  * \param split_string An array of strings returned by split_string function.
  */
 void free_split_string(char** split_string) {
-	int i = 0;
-	while (split_string[i] != NULL) {
-		free(split_string[i]);
-		i++;
-	}
-	free(split_string);
+    int i = 0;
+    while (split_string[i] != NULL) {
+        free(split_string[i]);
+        i++;
+    }
+    free(split_string);
 }
