@@ -87,9 +87,24 @@ void deleteMeeting(struct Meeting *meetings, int *numMeetings, int month, int da
         }
     }
     if (!found) {
-        printf("The time slot %d %d at %d is not in the calendar.\n", month, day, hour);
+        char *hourTwoDigit = malloc(sizeof(char) * 3);
+        char *dayTwoDigit = malloc(sizeof(char) * 3);
+        char *monthTwoDigit = malloc(sizeof(char) * 3);
+
+        sprintf(hourTwoDigit, "%02d", hour);
+        sprintf(dayTwoDigit, "%02d", day);
+        sprintf(monthTwoDigit, "%02d", month);
+
+        printf("The time slot %s.%s at %s is not in the calendar.\n", dayTwoDigit, monthTwoDigit, hourTwoDigit);
+
+        free(hourTwoDigit);
+        free(dayTwoDigit);
+        free(monthTwoDigit);
+
+        return;
+    } else {
+        printf("SUCCESS\n");
     }
-    printf("SUCCESS\n");
 }
 
 // Print the meetings in the system
@@ -98,30 +113,25 @@ void printMeetings(struct Meeting *meetings, int numMeetings) {
     // 2. The time fields must have two digits filled with 0.
     // 3. The database entries should be printed in the order of meeting time such that the earlier meetings will be printed first.
 
-    // Sorting the meetings by time
+    // Sorting the meetings by day, month, and hour. in descending order
     for (int i = 0; i < numMeetings - 1; i++) {
         for (int j = i + 1; j < numMeetings; j++) {
-            if (meetings[i].hour > meetings[j].hour) {
+            if (meetings[i].day < meetings[j].day) {
+                struct Meeting temp = meetings[i];
+                meetings[i] = meetings[j];
+                meetings[j] = temp;
+            } else if (meetings[i].day == meetings[j].day && meetings[i].month < meetings[j].month) {
+                struct Meeting temp = meetings[i];
+                meetings[i] = meetings[j];
+                meetings[j] = temp;
+            } else if (meetings[i].day == meetings[j].day && meetings[i].month == meetings[j].month && meetings[i].hour < meetings[j].hour) {
                 struct Meeting temp = meetings[i];
                 meetings[i] = meetings[j];
                 meetings[j] = temp;
             }
-            else if (meetings[i].hour == meetings[j].hour) {
-                if (meetings[i].day > meetings[j].day) {
-                    struct Meeting temp = meetings[i];
-                    meetings[i] = meetings[j];
-                    meetings[j] = temp;
-                }
-                else if (meetings[i].day == meetings[j].day) {
-                    if (meetings[i].month > meetings[j].month) {
-                        struct Meeting temp = meetings[i];
-                        meetings[i] = meetings[j];
-                        meetings[j] = temp;
-                    }
-                }
-            }
         }
     }
+    
 
     // The number have always two digits. For example if the number is 1, it will be printed as 01
     char *hour = malloc(sizeof(char) * 3);
@@ -175,7 +185,7 @@ void saveToFile(struct Meeting *meetings, int numMeetings, char *filename) {
 void loadFromFile(struct Meeting *meetings, int *numMeetings, char *filename) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
-        printf("Invalid command: O %s\n", filename);
+        printf("Cannot open file %s for reading.\n", filename);
         return;
     }
     char description[100];
