@@ -69,13 +69,6 @@
 // This operation must be implemented so that you can prevent memory leaks.
 
 
-// where to store the meetings
-struct Meeting {
-    char *description;
-    int month;
-    int day;
-    int hour;
-};
 
 // Add a new meeting to the system
 void addMeeting(struct Meeting *meetings, int *numMeetings, char *description, int month, int day, int hour) {
@@ -250,7 +243,7 @@ void quitProgram(struct Meeting *meetings, int numMeetings) {
 }
 
 // Main function
-int main() {
+int main () {
     struct Meeting meetings[100];
     int numMeetings = 0;
     char command[100];
