@@ -4,7 +4,8 @@
 #include <string.h>
 
 // Add a new meeting to the system
-void addMeeting(struct Meeting *meetings, int *numMeetings, char *description, int month, int day, int hour) {
+void addMeeting(struct Meeting *meetings, int *numMeetings, char *description, int month, int day, int hour, int printSuccess) {
+
     
     // Cheking if the month is valid
     if (month < 1 || month > 12) {
@@ -51,7 +52,10 @@ void addMeeting(struct Meeting *meetings, int *numMeetings, char *description, i
     // Incrementing the number of meetings
     (*numMeetings)++;  
 
-    printf("SUCCESS\n");
+    if(printSuccess) {
+        printf("SUCCESS\n");
+    }
+
 }
 
 // Delete a meeting from the system
@@ -173,7 +177,7 @@ void loadFromFile(struct Meeting *meetings, int *numMeetings, char *filename) {
     char description[100];
     int month, day, hour;
     while (fscanf(file, "%s %02d.%02d at %02d", description, &day, &month, &hour) == 4) {
-        addMeeting(meetings, numMeetings, description, month, day, hour);
+        addMeeting(meetings, numMeetings, description, month, day, hour, 0);
     }
     fclose(file);
     printf("SUCCESS\n");
@@ -194,31 +198,46 @@ int main () {
     int numMeetings = 0;
     char command[100];
     while (1) {
-        scanf("%s", command);
+        // Check if the command is the required format
+        if (fscanf(stdin, "%s", command) != 1) {
+            printf("Invalid command.\n");
+            continue;
+        }
         if (strcmp(command, "A") == 0) {
             char description[100];
             int month, day, hour;
-            scanf("%s %d %d %d", description, &month, &day, &hour);
-            addMeeting(meetings, &numMeetings, description, month, day, hour);
+            if (fscanf(stdin, "%s %02d %02d %02d", description, &month, &day, &hour) != 4) {
+                printf("A should be followed by exactly 4 arguments.\n");
+                continue;
+            }
+            addMeeting(meetings, &numMeetings, description, month, day, hour, 1);
         } else if (strcmp(command, "D") == 0) {
             int month, day, hour;
-            scanf("%d %d %d", &month, &day, &hour);
+            if (fscanf(stdin, "%02d %02d %02d", &month, &day, &hour) != 3) {
+                printf("D should be followed by exactly 3 arguments.\n");
+                continue;
+            }
             deleteMeeting(meetings, &numMeetings, month, day, hour);
         } else if (strcmp(command, "L") == 0) {
             printMeetings(meetings, numMeetings);
         } else if (strcmp(command, "W") == 0) {
             char filename[100];
-            scanf("%s", filename);
+            if (fscanf(stdin, "%s", filename) != 1) {
+                printf("W should be followed by exactly 1 argument.\n");
+                continue;
+            }
             saveToFile(meetings, numMeetings, filename);
         } else if (strcmp(command, "O") == 0) {
             char filename[100];
-            scanf("%s", filename);
+            if (fscanf(stdin, "%s", filename) != 1) {
+                printf("O should be followed by exactly 1 argument.\n");
+                continue;
+            }
             loadFromFile(meetings, &numMeetings, filename);
         } else if (strcmp(command, "Q") == 0) {
             quitProgram(meetings, numMeetings);
         } else {
-            printf("Invalid command %s\n", command);
+            printf("Invalid command %s.\n", command);
         }
     }
-    return 0;
 }
