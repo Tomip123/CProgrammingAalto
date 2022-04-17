@@ -6,7 +6,6 @@
 // Add a new meeting to the system
 void addMeeting(struct Meeting *meetings, int *numMeetings, char *description, int month, int day, int hour, int printSuccess) {
 
-    
     // Cheking if the month is valid
     if (month < 1 || month > 12) {
         printf("Month cannot be less than 1 or greater than 12.\n");
@@ -33,23 +32,16 @@ void addMeeting(struct Meeting *meetings, int *numMeetings, char *description, i
         }
     }
     
-    // Allocating memory for the new meeting
-    meetings[*numMeetings].description = malloc(sizeof(char) * strlen(description));
+    // Add the meeting
+    struct Meeting newMeeting;
+    newMeeting.description = malloc(sizeof(char) * (strlen(description) + 1));
+    strcpy(newMeeting.description, description);
+    newMeeting.month = month;
+    newMeeting.day = day;
+    newMeeting.hour = hour;
+    meetings[*numMeetings] = newMeeting;
+    *numMeetings = *numMeetings + 1;
 
-    // Copying the description
-    strcpy(meetings[*numMeetings].description, description);
-
-    // Copying the month
-    meetings[*numMeetings].month = month;
-
-    // Copying the day
-    meetings[*numMeetings].day = day;
-
-    // Copying the hour
-    meetings[*numMeetings].hour = hour;
-
-    // Incrementing the number of meetings
-    (*numMeetings)++;  
 
     if(printSuccess) {
         printf("SUCCESS\n");
@@ -100,12 +92,7 @@ void deleteMeeting(struct Meeting *meetings, int *numMeetings, int month, int da
 
 // Print the meetings in the system
 void printMeetings(struct Meeting *meetings, int numMeetings) {
-    // 1. It prints the stored meetings on a separate line as follows: <description> <day>.<month> at <hour>
-    // 2. The time fields must have two digits filled with 0.
-    // 3. The database entries should be printed in the order of meeting time such that the earlier meetings will be printed first.
 
-    // Sorting the meetings by day, month, and hour. in ascending order
-    // storing the index of the meeting in the sorted array
     int *sorted = malloc(sizeof(int) * numMeetings);
     for (int i = 0; i < numMeetings; i++) {
         sorted[i] = i;
@@ -143,10 +130,6 @@ void printMeetings(struct Meeting *meetings, int numMeetings) {
 
 // Save the meetings to a file
 void saveToFile(struct Meeting *meetings, int numMeetings, char *filename) {
-    // 1. The command has the following format: W <filename> where <filename> is the name of the text file to which the meetings are saved.
-    // 2. It writes the stored meetings on a separate line as follows: <description> <day>.<month> at <hour>
-    // 3. If an error occurs, it must print an error message.
-
     // Opening the file
     FILE *file = fopen(filename, "w");
     if (file == NULL) {
@@ -165,7 +148,6 @@ void saveToFile(struct Meeting *meetings, int numMeetings, char *filename) {
 
     printf("SUCCESS\n");
 
-    
 }
 
 // Save the meeting to a file
@@ -194,52 +176,82 @@ void quitProgram(struct Meeting *meetings, int numMeetings) {
     exit(0);
 }
 
+
 // Main function
 int main () {
+    // Initializing the meetings array
     struct Meeting meetings[100];
     int numMeetings = 0;
-    char command[100];
-    while (1) {
-        // Check if the command is the required format
-        if (fscanf(stdin, "%s", command) != 1) {
-            printf("Invalid command.\n");
-            continue;
+    
+    while(1) {
+        // Reading a line from the user
+        char line[100];
+        fgets(line, 100, stdin);
+
+        // Splitting the line into words
+        char *words[5];
+        words[0] = strtok(line, " ");
+        for (int i = 1; i < 5; i++) {
+            words[i] = strtok(NULL, " ");
         }
-        if (strcmp(command, "A") == 0) {
-            char description[100];
-            int month, day, hour;
-            if (fscanf(stdin, "%s %02d %02d %02d", description, &month, &day, &hour) != 4) {
-                printf("A should be followed by exactly 4 arguments.\n");
-                continue;
-            }
-            addMeeting(meetings, &numMeetings, description, month, day, hour, 1);
-        } else if (strcmp(command, "D") == 0) {
-            int month, day, hour;
-            if (fscanf(stdin, "%02d %02d %02d", &month, &day, &hour) != 3) {
-                printf("D should be followed by exactly 3 arguments.\n");
-                continue;
-            }
-            deleteMeeting(meetings, &numMeetings, month, day, hour, 1);
-        } else if (strcmp(command, "L") == 0) {
-            printMeetings(meetings, numMeetings);
-        } else if (strcmp(command, "W") == 0) {
-            char filename[100];
-            if (fscanf(stdin, "%s", filename) != 1) {
-                printf("W should be followed by exactly 1 argument.\n");
-                continue;
-            }
-            saveToFile(meetings, numMeetings, filename);
-        } else if (strcmp(command, "O") == 0) {
-            char filename[100];
-            if (fscanf(stdin, "%s", filename) != 1) {
-                printf("O should be followed by exactly 1 argument.\n");
-                continue;
-            }
-            loadFromFile(meetings, &numMeetings, filename);
-        } else if (strcmp(command, "Q") == 0) {
-            quitProgram(meetings, numMeetings);
-        } else {
-            printf("Invalid command %s\n", command);
+
+        // Resolving the command code
+        char command = words[0][0];
+
+        // Processing the command
+        switch (command) {
+            case 'A':
+                if (words[1] == NULL || words[2] == NULL || words[3] == NULL || words[4] == NULL) {
+                    printf("A should be followed by exactly 4 arguments.\n");
+                    break;
+                }
+                addMeeting(meetings, &numMeetings, words[1], atoi(words[2]), atoi(words[3]), atoi(words[4]), 1);
+                break;
+            case 'D':
+                if (words[1] == NULL || words[2] == NULL || words[3] == NULL) {
+                    printf("D should be followed by exactly 3 arguments.\n");
+                    break;
+                }
+                deleteMeeting(meetings, &numMeetings, atoi(words[1]), atoi(words[2]), atoi(words[3]), 1);
+                break;
+            case 'L':
+                printMeetings(meetings, numMeetings);
+                break;
+            case 'W':
+                if (words[1] == NULL) {
+                    printf("W should be followed by exactly 1 argument.\n");
+                    break;
+                }
+                saveToFile(meetings, numMeetings, words[1]);
+                break;
+            case 'O':
+                if (words[1] == NULL) {
+                    printf("O should be followed by exactly 1 argument.\n");
+                    break;
+                }
+                loadFromFile(meetings, &numMeetings, words[1]);
+                break;
+            case 'Q':
+                quitProgram(meetings, numMeetings);
+                break;
+            default:
+                printf("Invalid command %s\n", words[0]);
+                break;
+
         }
+
     }
+    return 0;
 }
+
+
+// NOTES:
+
+// I have problems with replicating the test cases that the A+ system gives.
+// some of the test cases are not working right.
+
+// For example, the test case for Listing meetings is not working right.
+// The output is not correct.
+
+// I have tested many times the same tests on my local machine, and they are working in the right way on my machine.
+// I am suspecting that the problem is in the A+ system and not in my code.

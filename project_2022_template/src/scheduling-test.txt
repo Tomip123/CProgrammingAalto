@@ -1,5 +1,0 @@
-Haircut 1.5 at 8
-Doctor 31.12 at 12
-EventName.........WithSomeDots 31.1 at 23
-Haircut 1.5 at 23
-Doctor 31.12 at 8
