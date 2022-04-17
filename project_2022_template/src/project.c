@@ -27,13 +27,12 @@ void addMeeting(struct Meeting *meetings, int *numMeetings, char *description, i
 
     // Check if the meeting already exists
     for (int i = 0; i < *numMeetings; i++) {
-        if (meetings[i].month == month && meetings[i].day == day && meetings[i].hour == hour) {
-            printf("Invalid command: A %s %d %d %d\n", description, month, day, hour);
-            printf("Invalid command: meeting already exists at this time\n");
-            return;
+    if (meetings[i].month == month && meetings[i].day == day && meetings[i].hour == hour) {
+        printf("The time slot %02d.%02d at %02d is already allocated.\n", day, month, hour);
+        return;
         }
     }
-
+    
     // Allocating memory for the new meeting
     meetings[*numMeetings].description = malloc(sizeof(char) * strlen(description));
 
@@ -59,7 +58,7 @@ void addMeeting(struct Meeting *meetings, int *numMeetings, char *description, i
 }
 
 // Delete a meeting from the system
-void deleteMeeting(struct Meeting *meetings, int *numMeetings, int month, int day, int hour) {
+void deleteMeeting(struct Meeting *meetings, int *numMeetings, int month, int day, int hour, int printSuccess) {
 
     // Check if the month is valid
     if (month < 1 || month > 12) {
@@ -93,7 +92,9 @@ void deleteMeeting(struct Meeting *meetings, int *numMeetings, int month, int da
     if (!found) {
         printf("The time slot %02d.%02d at %02d is not in the calendar.\n", day, month, hour);
     } else {
-        printf("SUCCESS\n");
+        if(printSuccess) {
+            printf("SUCCESS\n");
+        }
     }
 }
 
@@ -177,6 +178,7 @@ void loadFromFile(struct Meeting *meetings, int *numMeetings, char *filename) {
     char description[100];
     int month, day, hour;
     while (fscanf(file, "%s %02d.%02d at %02d", description, &day, &month, &hour) == 4) {
+        deleteMeeting(meetings, numMeetings, month, day, hour, 0);
         addMeeting(meetings, numMeetings, description, month, day, hour, 0);
     }
     fclose(file);
@@ -217,7 +219,7 @@ int main () {
                 printf("D should be followed by exactly 3 arguments.\n");
                 continue;
             }
-            deleteMeeting(meetings, &numMeetings, month, day, hour);
+            deleteMeeting(meetings, &numMeetings, month, day, hour, 1);
         } else if (strcmp(command, "L") == 0) {
             printMeetings(meetings, numMeetings);
         } else if (strcmp(command, "W") == 0) {
@@ -237,7 +239,7 @@ int main () {
         } else if (strcmp(command, "Q") == 0) {
             quitProgram(meetings, numMeetings);
         } else {
-            printf("Invalid command %s.\n", command);
+            printf("Invalid command %s\n", command);
         }
     }
 }

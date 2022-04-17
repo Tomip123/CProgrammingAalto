@@ -10,7 +10,7 @@ struct Meeting {
 };
 
 void addMeeting(struct Meeting *meetings, int *numMeetings, char *description, int month, int day, int hour, int printSuccess);
-void deleteMeeting(struct Meeting *meetings, int *numMeetings, int month, int day, int hour);
+void deleteMeeting(struct Meeting *meetings, int *numMeetings, int month, int day, int hour, int printSuccess);
 void printMeetings(struct Meeting *meetings, int numMeetings);
 void saveToFile(struct Meeting *meetings, int numMeetings, char *filename);
 void loadFromFile(struct Meeting *meetings, int *numMeetings, char *filename);
