@@ -93,6 +93,7 @@ void deleteMeeting(struct Meeting *meetings, int *numMeetings, int month, int da
 // Print the meetings in the system
 void printMeetings(struct Meeting *meetings, int numMeetings) {
 
+    // Sorting the meetings by month, day, hour
     int *sorted = malloc(sizeof(int) * numMeetings);
     for (int i = 0; i < numMeetings; i++) {
         sorted[i] = i;
@@ -130,6 +131,7 @@ void printMeetings(struct Meeting *meetings, int numMeetings) {
 
 // Save the meetings to a file
 void saveToFile(struct Meeting *meetings, int numMeetings, char *filename) {
+    
     // Opening the file
     FILE *file = fopen(filename, "w");
     if (file == NULL) {
