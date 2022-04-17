@@ -87,21 +87,7 @@ void deleteMeeting(struct Meeting *meetings, int *numMeetings, int month, int da
         }
     }
     if (!found) {
-        char *hourTwoDigit = malloc(sizeof(char) * 3);
-        char *dayTwoDigit = malloc(sizeof(char) * 3);
-        char *monthTwoDigit = malloc(sizeof(char) * 3);
-
-        sprintf(hourTwoDigit, "%02d", hour);
-        sprintf(dayTwoDigit, "%02d", day);
-        sprintf(monthTwoDigit, "%02d", month);
-
-        printf("The time slot %s.%s at %s is not in the calendar.\n", dayTwoDigit, monthTwoDigit, hourTwoDigit);
-
-        free(hourTwoDigit);
-        free(dayTwoDigit);
-        free(monthTwoDigit);
-
-        return;
+        printf("The time slot %02d.%02d at %02d is not in the calendar.\n", day, month, hour);
     } else {
         printf("SUCCESS\n");
     }
@@ -113,46 +99,42 @@ void printMeetings(struct Meeting *meetings, int numMeetings) {
     // 2. The time fields must have two digits filled with 0.
     // 3. The database entries should be printed in the order of meeting time such that the earlier meetings will be printed first.
 
-    // Sorting the meetings by day, month, and hour. in descending order
+    // Sorting the meetings by day, month, and hour. in ascending order
+    // storing the index of the meeting in the sorted array
+    int *sorted = malloc(sizeof(int) * numMeetings);
+    for (int i = 0; i < numMeetings; i++) {
+        sorted[i] = i;
+    }
     for (int i = 0; i < numMeetings - 1; i++) {
         for (int j = i + 1; j < numMeetings; j++) {
-            if (meetings[i].day < meetings[j].day) {
-                struct Meeting temp = meetings[i];
-                meetings[i] = meetings[j];
-                meetings[j] = temp;
-            } else if (meetings[i].day == meetings[j].day && meetings[i].month < meetings[j].month) {
-                struct Meeting temp = meetings[i];
-                meetings[i] = meetings[j];
-                meetings[j] = temp;
-            } else if (meetings[i].day == meetings[j].day && meetings[i].month == meetings[j].month && meetings[i].hour < meetings[j].hour) {
-                struct Meeting temp = meetings[i];
-                meetings[i] = meetings[j];
-                meetings[j] = temp;
+            if (meetings[sorted[i]].month > meetings[sorted[j]].month) {
+                int temp = sorted[i];
+                sorted[i] = sorted[j];
+                sorted[j] = temp;
+            } else if (meetings[sorted[i]].month == meetings[sorted[j]].month) {
+                if (meetings[sorted[i]].day > meetings[sorted[j]].day) {
+                    int temp = sorted[i];
+                    sorted[i] = sorted[j];
+                    sorted[j] = temp;
+                } else if (meetings[sorted[i]].day == meetings[sorted[j]].day) {
+                    if (meetings[sorted[i]].hour > meetings[sorted[j]].hour) {
+                        int temp = sorted[i];
+                        sorted[i] = sorted[j];
+                        sorted[j] = temp;
+                    }
+                }
             }
         }
     }
-    
-
-    // The number have always two digits. For example if the number is 1, it will be printed as 01
-    char *hour = malloc(sizeof(char) * 3);
-    char *day = malloc(sizeof(char) * 3);
-    char *month = malloc(sizeof(char) * 3);
 
     // Printing the meetings
     for (int i = 0; i < numMeetings; i++) {
-        sprintf(hour, "%02d", meetings[i].hour);
-        sprintf(day, "%02d", meetings[i].day);
-        sprintf(month, "%02d", meetings[i].month);
-        printf("%s %s.%s at %s\n", meetings[i].description, day, month, hour);
+        printf("%s %02d.%02d at %02d\n", meetings[sorted[i]].description, meetings[sorted[i]].day, meetings[sorted[i]].month, meetings[sorted[i]].hour);
     }
-
-    free(hour);
-    free(day);
-    free(month);
-
+    free(sorted);
     printf("SUCCESS\n");
-
 }
+
 
 // Save the meetings to a file
 void saveToFile(struct Meeting *meetings, int numMeetings, char *filename) {
@@ -190,7 +172,7 @@ void loadFromFile(struct Meeting *meetings, int *numMeetings, char *filename) {
     }
     char description[100];
     int month, day, hour;
-    while (fscanf(file, "%s %d.%d at %d", description, &day, &month, &hour) == 4) {
+    while (fscanf(file, "%s %02d.%02d at %02d", description, &day, &month, &hour) == 4) {
         addMeeting(meetings, numMeetings, description, month, day, hour);
     }
     fclose(file);
@@ -240,19 +222,3 @@ int main () {
     }
     return 0;
 }
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
