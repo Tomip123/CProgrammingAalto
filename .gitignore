@@ -1,0 +1,23 @@
+# Binaries and Objects
+main
+*.o
+*.a
+*.so
+*.out
+*.exe
+*.dSYM/
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+*.code-workspace
+
+# OS Specific
+.DS_Store
+Thumbs.db
+
+# Temporary Files
+*.tmp
+*.log
